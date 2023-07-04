@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #007bff;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>高校论文管理系统</h1>
+    <form id="registrationForm">
+        <div class="form-group">
+            <label for="username">账号:</label>
+            <input type="username" id="username" name="username" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="userType">登录类型：</label>
+            <select id="userType" name="userType" class="form-control">
+                <option value="admin">管理员</option>
+                <option value="student">学生</option>
+                <option value="teacher">教师</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">登 录</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // 监听表单提交事件
+        $("#registrationForm").submit(function(e) {
+            e.preventDefault(); // 阻止表单默认提交行为
+
+            // 将表单数据序列化为 JSON 对象
+            var formData = $(this).serializeArray();
+            var jsonData = {};
+            $.each(formData, function(index, field) {
+                jsonData[field.name] = field.value;
+            });
+
+            var url;
+            if(jsonData.userType == "admin"){
+                url = "/admin/login";
+            }else if (jsonData.userType == "teacher"){
+                url = "/teacher/login";
+            }else {
+                url = "/student/login";
+            }
+            // 发送 AJAX 请求
+            $.ajax({
+                url: url,
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(jsonData),
+                success: function(response) {
+                    // 可以根据响应结果执行相应的操作
+                    //window.location.href = "/success.html";
+                    if(jsonData.userType == "admin"){
+                        window.location.href = "/admin.html";
+                    }else if (jsonData.userType == "teacher"){
+                        window.location.href = "/teacher.html";
+                    }else {
+                        window.location.href = "/student.html";
+                    }
+
+                },
+                error: function(error) {
+
+                    // 可以根据错误信息执行相应的操作
+                    alert("账号或密码错误！");
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

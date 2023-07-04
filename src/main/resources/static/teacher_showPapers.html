@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>论文查看</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+        }
+
+        button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "/teacher/myPapers",
+                type: "GET",
+                success: function(response) {
+                    // 在页面中展示 List 数组数据
+                    response.forEach(function(list) {
+                        var row = "<tr>" +
+                            "<td>" + list.sid + "</td>" +
+                            "<td>" + list.pname + "</td>" +
+                            "<td>" + list.pcomment + "</td>" +
+                            "<td>" + list.pscore + "</td>" +
+                            "</tr>";
+                        $("#usersTable").append(row);
+                    });
+                },
+                error: function(error) {
+                    console.log("请求失败:", error);
+                }
+            });
+        });
+
+        function redirectToPage() {
+            window.location.href = "teacher.html";
+        }
+
+        function redirectToModifyPage() {
+            window.location.href = "teacher_updatePaper.html";
+        }
+    </script>
+</head>
+<body>
+<h1>您的学生论文列表</h1>
+<table id="usersTable">
+    <tr>
+        <th>学号</th>
+        <th>论文名称</th>
+        <th>论文评论</th>
+        <th>论文分数</th>
+    </tr>
+</table>
+<a href="teacher_download.html">下载论文</a>
+<button onclick="redirectToModifyPage()">修改论文</button>
+<button onclick="redirectToPage()">返回</button>
+</body>
+</html>

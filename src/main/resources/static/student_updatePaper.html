@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>修改信息</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    form {
+      margin: 20px auto;
+      width: 300px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      display: block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .button-container button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      background-color: #ccc;
+      border: none;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .button-container button:last-child {
+      margin-right: 0;
+    }
+
+    .button-container button:hover {
+      background-color: #999;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#modifyForm").submit(function(e) {
+        e.preventDefault();
+
+        var pname = $("#pname").val();
+
+        var jsonData = {
+          pname: pname
+        };
+
+        $.ajax({
+          url: "/student/updatePaper",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(jsonData),
+          success: function(response) {
+            alert("信息修改成功!");
+            window.location.href = "/student_showPaper.html"; // 替换为实际的目标页面
+          },
+          error: function(error) {
+            alert("信息修改失败!");
+          }
+        });
+      });
+    });
+  </script>
+  <script>
+    function redirectToPage() {
+      window.location.href = "student_showPaper.html";
+    }
+
+    function uploadPaper() {
+      window.location.href = "student_upload.html";
+    }
+  </script>
+</head>
+<body>
+<h1>修改信息</h1>
+<form id="modifyForm">
+  <label for="pname">论文名:</label>
+  <input type="text" id="pname" name="pname"><br><br>
+
+  <input type="submit" value="修改">
+</form>
+
+<div class="button-container">
+  <button onclick="uploadPaper()">上传</button>
+  <button onclick="redirectToPage()">返回</button>
+</div>
+</body>
+</html>

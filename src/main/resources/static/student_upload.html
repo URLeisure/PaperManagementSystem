@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>论文上传</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    form {
+      width: 50%;
+      margin: 20px auto;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    button[type="submit"] {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+
+    button[type="button"] {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+<h1>论文上传</h1>
+<form action="/student/upload" method="post" enctype="multipart/form-data">
+  <input type="file" name="file" accept="*">
+  <label for="title">标题：</label>
+  <input type="text" id="title" name="title">
+  <button type="submit">上传</button>
+</form>
+
+
+<button onclick="redirectToPage()">返回</button>
+
+
+<script>
+  // 监听表单提交成功事件
+  document.querySelector("form").addEventListener("submit", function() {
+    // 跳转到指定页面
+    window.location.href = "student_showPaper.html";
+  });
+
+  function redirectToPage() {
+    window.location.href = "student_showPaper.html";
+  }
+</script>
+
+
+
+</body>
+</html>

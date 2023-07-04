@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>删除老师</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        form {
+            margin: 20px auto;
+            width: 300px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #c82333;
+        }
+
+        button {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0069d9;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#submitForm").submit(function(e) {
+                e.preventDefault();
+
+                var username = $("#username").val();
+                var jsonData = {
+                    username: username,
+                };
+
+                $.ajax({
+                    url: "/teacher/delete",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(jsonData),
+                    success: function(response) {
+                        alert("删除成功!");
+                        // 执行其他操作或跳转页面
+                    },
+                    error: function(error) {
+                        alert("请求发送失败!");
+                    }
+                });
+            });
+        });
+
+
+    </script>
+    <script>
+        function redirectToPage() {
+            window.location.href = "admin_showTeachers.html";
+        }
+    </script>
+
+</head>
+<body>
+<h1>删除老师</h1>
+<form id="submitForm">
+    <label for="username">用户名:</label>
+    <input type="text" id="username" name="username"><br><br>
+    <input type="submit" value="提交">
+</form>
+<button onclick="redirectToPage()">返回</button>
+</body>
+</html>

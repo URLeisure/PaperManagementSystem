@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>下载页面</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+    }
+
+    div {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      padding: 5px;
+    }
+
+    #username {
+      margin-top: 20px;
+    }
+
+    a {
+      display: block;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    button {
+      display: block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <label for="myInput">学号:</label>
+  <input type="text" id="myInput" oninput="showLink()">
+</div>
+<div id="username"></div>
+
+<script>
+  function showLink() {
+    var input = document.getElementById("myInput");
+    var inputValue = input.value;
+
+    // 创建超链接
+    var link = document.createElement("a");
+    link.href = "teacher/download/" + inputValue;
+    link.textContent = "下载论文";
+
+    // 将超链接添加到页面中
+    var usernameDiv = document.getElementById("username");
+    usernameDiv.innerHTML = "";
+    usernameDiv.appendChild(link);
+  }
+</script>
+
+<script>
+  function redirectToPage() {
+    window.location.href = "teacher_showPapers.html";
+  }
+</script>
+
+<button onclick="redirectToPage()">返回</button>
+</body>
+</html>

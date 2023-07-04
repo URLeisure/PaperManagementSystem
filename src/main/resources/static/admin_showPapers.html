@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>所有论文</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0069d9;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "/admin/Papers",
+                type: "GET",
+                success: function(response) {
+                    // 在页面中展示 List 数组数据
+                    response.forEach(function(list) {
+                        var row = "<tr>" +
+                            "<td>" + list.sid + "</td>" +
+                            "<td>" + list.pname + "</td>" +
+                            "<td>" + list.pcomment + "</td>" +
+                            "<td>" + list.pscore + "</td>" +
+                            "</tr>";
+                        $("#usersTable").append(row);
+                    });
+                },
+                error: function(error) {
+                    console.log("请求失败:", error);
+                }
+            });
+        });
+
+        function redirectToPage() {
+            window.location.href = "admin.html";
+        }
+    </script>
+</head>
+<body>
+<h1>所有论文</h1>
+<table id="usersTable">
+    <tr>
+        <th>学号</th>
+        <th>论文名称</th>
+        <th>论文评论</th>
+        <th>论文分数</th>
+    </tr>
+</table>
+<button onclick="redirectToPage()">返回</button>
+</body>
+</html>
